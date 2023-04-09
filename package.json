@@ -1,0 +1,55 @@
+{
+  "name": "penguindimension",
+  "version": "1.0.0",
+  "description": "Penguin Dimension",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder build --win --ia32 --publish never",
+    "build-mac": "electron-builder build --mac --ia32 --publish never",
+    "build-linux": "electron-builder build --linux --ia32 --x64 --publish never"
+  },
+  "bugs": {
+    "url": "https://github.com/PenguinDimension/PD-Client/issues"
+  },
+  "homepage": "https://github.com/PenguinDimension/PD-Client#readme",
+  "repository": "https://github.com/PenguinDimension/PD-Client",
+  "author": "Gotastico",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^11.3.0",
+    "electron-builder": "^22.2.0",
+    "electron-is-dev": "^1.1.0"
+  },
+  "dependencies": {
+    "discord-rpc": "^3.1.4",
+    "electron-is-dev": "^1.1.0",
+    "electron-updater": "^4.2.0"
+  },
+  "build": {
+    "appId": "pw.penguindimension.client",
+    "productName": "Penguin Dimension",
+    "asar": "false",
+    "win": {
+      "target": [
+        "nsis","zip"
+      ],
+      "icon": "./favicon.ico",
+      "artifactName": "PD-Client-Setup-Windows-${version}.${ext}"
+    },
+    "linux": {
+      "category": "games",
+      "target": ["zip"],
+      "icon": "./icon.icns",
+      "artifactName": "PD-Client-Setup-Linux-${version}.${ext}"
+    },
+    "protocols": [
+      {
+        "name": "pd",
+        "schemes": [
+          "pd"
+        ]
+      }
+    ]
+  }
+}
