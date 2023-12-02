@@ -1,2 +1,3 @@
-# Penguin Dimension
-Cliente desktop para o Penguin Dimension, feito com base no antigo cliente do CPBR e Coastal Freeze.
+# Club Penguin Dimensions
+Cliente desktop para o Club Penguin Dimensions.
+Versão feita do zero pela equipe para um melhor conforto em atualizações e melhorias!

@@ -1,53 +1,146 @@
 {
-  "name": "penguindimension",
-  "version": "1.0.0",
-  "description": "Penguin Dimension",
-  "main": "main.js",
+  "name": "cpdimensions",
+  "version": "2.0.0",
+  "description": "Club Penguin Dimensions",
+  "author": "PiterOfc <phenriquenbcp@gmail.com>",
+  "license": "CC0-1.0",
+  "homepage": "https://github.com/PenguinDimension/CPD-Client#readme",
+  "repository": "https://github.com/PenguinDimension/CPD-Client",
+  "bugs": {
+    "url": "https://github.com/PenguinDimension/CPD-Client/issues"
+  },
+  "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder build --win --ia32 --publish never",
+    "release": "electron-builder",
+    "build-win-nsis": "electron-builder build --win nsis --x64 --ia32 --publish always",
+    "build-win-nsisweb": "electron-builder build --win nsis-web --x64 --ia32 --publish always",
+    "build-win-zip": "electron-builder build --win zip --ia32 --publish always",
+    "build-win-ptb": "electron-builder build --win portable --ia32 --publish always",
     "build-mac": "electron-builder build --mac --ia32 --publish never",
-    "build-linux": "electron-builder build --linux --ia32 --x64 --publish never"
+    "build-linux": "electron-builder build --linux --ia32 --publish never"
   },
-  "bugs": {
-    "url": "https://github.com/PenguinDimension/PD-Client/issues"
-  },
-  "homepage": "https://github.com/PenguinDimension/PD-Client#readme",
-  "repository": "https://github.com/PenguinDimension/PD-Client",
-  "author": "Gotastico",
-  "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^11.3.0",
-    "electron-builder": "^22.2.0",
-    "electron-is-dev": "^1.1.0"
+    "electron-builder": "^20.2.0",
+    "electron-forge": "^5.2.4",
+    "electron-prebuilt-compile": "8.2.0"
   },
   "dependencies": {
-    "discord-rpc": "^3.1.4",
+    "bufferutil": "github:PenguinDimension/bufferutil",
+    "discord-rpc": "github:PenguinDimension/discord-rpc",
     "electron-is-dev": "^1.1.0",
-    "electron-updater": "^4.2.0"
+    "electron-updater": "^4.2.0",
+    "encoding": "^0.1.13",
+    "fs": "^0.0.1-security",
+    "utf-8-validate": "github:PenguinDimension/utf-8-validate"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "./build/512x512.icns"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-dmg",
+          "config": {
+            "format": "ULFO"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ],
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "PenguinDimension",
+              "name": "CPD-Client"
+            }
+          }
+        }
+      ]
+    }
   },
   "build": {
-    "appId": "pw.penguindimension.client",
-    "productName": "Penguin Dimension",
+    "appId": "pw.cpdimensions.client",
+    "productName": "CPDimensions",
+    "publish": [
+      "github"
+    ],
     "asar": "false",
+    "files": [
+      "!node_modules/*",
+      "!dist/*"
+    ],
     "win": {
-      "target": [
-        "nsis","zip"
+      "files": [
+        "!node_modules/*",
+        "!dist/*"
       ],
-      "icon": "./favicon.ico",
-      "artifactName": "PD-Client-Setup-Windows-${version}.${ext}"
+      "compression": "store",
+      "icon": "./build/256x256.ico",
+      "artifactName": "CPD-Windows-${version}.${ext}"
+    },
+    "nsis": {
+      "deleteAppDataOnUninstall": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "CPDimensions",
+      "installerIcon": "./build/install-icon.ico",
+      "uninstallerIcon": "./build/uninstall-icon.ico",
+      "artifactName": "CPD-Setup-Windows-${version}.${ext}"
+    },
+    "nsisWeb": {
+      "deleteAppDataOnUninstall": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "CPDimensions",
+      "installerIcon": "./build/install-icon.ico",
+      "uninstallerIcon": "./build/uninstall-icon.ico",
+      "artifactName": "CPD-Online-Setup-Windows-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "CPD-Portable-Windows-${version}.${ext}"
     },
     "linux": {
+      "desktop": {
+        "StartupNotify": "false",
+        "Encoding": "UTF-8",
+        "MimeType": "x-scheme-handler/deeplink"
+      },
       "category": "games",
-      "target": ["zip"],
-      "icon": "./icon.icns",
-      "artifactName": "PD-Client-Setup-Linux-${version}.${ext}"
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "files": [
+        "!node_modules/*",
+        "!dist/*"
+      ],
+      "icon": "./build/512x512.icns",
+      "artifactName": "CPD-Setup-Linux-${version}.${ext}"
+    },
+    "mac": {
+      "artifactName": "CPD-Setup-Mac-${version}.${ext}",
+      "icon": "./build/512x512.icns",
+      "category": "lib.games"
+    },
+    "directories": {
+      "buildResources": "build"
     },
     "protocols": [
       {
-        "name": "pd",
+        "name": "cpd",
         "schemes": [
-          "pd"
+          "cpd"
         ]
       }
     ]

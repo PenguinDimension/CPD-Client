@@ -1,5 +1,8 @@
 'use strict';
 
+// true = SIM/ATIVADO/HABILITADO
+// false = NÃO/DESATIVADO/DESABILITADO
+
 const config = {
 
 	"links": {
@@ -7,7 +10,8 @@ const config = {
 		"jogar": "https://play.conexaopinguim.pw"
 	},
 
-	"auto_update": false, // AINDA NÃO TESTADO | SE O CLIENTE DEVERÁ SER ATUALIZADO AUTOMATICAMENTE OU NÃO
+	"auto_update": true, // AINDA NÃO TESTADO | SE O CLIENTE DEVERÁ SER ATUALIZADO AUTOMATICAMENTE OU NÃO
+	"dc_rich_presence": true, // ATIVE OU DESATIVE O RICH PRESENCE DO DISCORD
 
 	"modos": {
 		"youtuber": false, // ABRE EM TELA CHEIA E ADICIONA ZOOMS PERSONALIZADOS
