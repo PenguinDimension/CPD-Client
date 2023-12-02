@@ -85,7 +85,6 @@
         "!node_modules/*",
         "!dist/*"
       ],
-      "compression": "store",
       "icon": "./build/256x256.ico",
       "artifactName": "CPD-Windows-${version}.${ext}"
     },
