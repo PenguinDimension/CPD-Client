@@ -6,15 +6,16 @@
 const config = {
 
 	"links": {
-		"inicio": "https://conexaopinguim.pw",
-		"jogar": "https://play.conexaopinguim.pw"
+		"inicio": "https://cpdimensions.com",
+		"jogar": "https://play.cpdimensions.com"
 	},
 
 	"auto_update": true, // AINDA NÃO TESTADO | SE O CLIENTE DEVERÁ SER ATUALIZADO AUTOMATICAMENTE OU NÃO
 	"dc_rich_presence": true, // ATIVE OU DESATIVE O RICH PRESENCE DO DISCORD
 
 	"modos": {
-		"youtuber": false, // ABRE EM TELA CHEIA E ADICIONA ZOOMS PERSONALIZADOS
+		"youtuber": false, // ADICIONA ZOOMS PERSONALIZADOS
+		"fullscreen": false, // TELA CHEIA AO ABRIR O CLIENTE PARA NÃO CONGELAR DURANTE GRAVAÇÕES E STREAMS
 		"dev": false // HABILITA FERRAMENTAS WEB DE DESENVOLVEDOR E MÚLTIPLAS INSTÂNCIAS
 	},
 
