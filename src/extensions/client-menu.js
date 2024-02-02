@@ -38,18 +38,6 @@ let template = [
     }
   },
   {
-    label: 'Limpar cache',
-    click: () => {
-      clearCache;
-      dialog.showMessageBox({
-        type: "info",
-        //buttons: ["Vlw!"],
-        title: "Cache limpo!",
-        message: "Agora é só recarregar a página e aproveitar!"
-      });
-    }
-  },
-  {
     label: '(Des)Mutar Áudio',
     accelerator: 'Ctrl+M',
     click: () => { 
@@ -98,14 +86,29 @@ let template = [
     //type: 'separator'
   },
   {
-    label: 'Recarregar página',
+    label: 'Limpar cache',
+    click: () => {
+      clearCache;
+      dialog.showMessageBox({
+        type: "info",
+        //buttons: ["Vlw!"],
+        title: "Cache limpo!",
+        message: "Agora é só recarregar a página e aproveitar!"
+      });
+    }
+  },
+  {
+    label: 'Atualizar página',
     accelerator: 'F5',
     click: () => {
       mainWindow.reload();
     }
   },
   {
-    label: 'Reiniciar',
+    label: '|',
+  },
+  {
+    label: 'Reiniciar cliente',
     accelerator: 'Ctrl+R',
     click: () => {
       if (portableLoc) return dialog.showMessageBoxSync({
@@ -151,6 +154,10 @@ let Zooms = [
 
 if (config.modos.youtuber == true) {
   // AGORA COMEÇA OS ZOOMS PARA BOA QUALIDADE DE GRAVAÇÃO DE VÍDEO
+
+  template.find(i => i.label == "Zooms").submenu.push({
+    type: 'separator'
+  });
 
   Zooms.forEach(zoom => {
     template.find(i => i.label == "Zooms").submenu.push({
