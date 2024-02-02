@@ -1,4 +1,4 @@
-const {app, BrowserWindow, dialog, Menu, MenuItem, ipcMain, Tray} = require('electron');
+const {app, BrowserWindow, dialog, Menu, MenuItem, ipcMain, Tray, globalShortcut} = require('electron');
 const isDev = require('electron-is-dev');
 const { autoUpdater } = require("electron-updater");
 const DiscordRPC = require('discord-rpc');
@@ -98,8 +98,6 @@ app.commandLine.appendSwitch('ppapi-flash-path', path.join(__dirname, pluginName
 app.commandLine.appendSwitch("disable-http-cache");
 app.commandLine.appendSwitch("ignore-certificate-errors");
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 if (config.auto_update == true && !portableLoc) autoUpdater.checkForUpdatesAndNotify();
 
 var mainWindow;
@@ -141,7 +139,7 @@ function createWindow () {
   splashWindow.setResizable(false);
   //splashWindow.loadFile('pages/images/Carregando.png');
   //splashWindow.loadFile('pages/carregando.html');
-  splashWindow.loadURL('https://conexaopinguim.pw/client/carregando');
+  splashWindow.loadURL('https://cpdimensions.com/client/carregando');
   splashWindow.on('closed', () => (splashWindow = null));
   splashWindow.webContents.on('did-finish-load', () => {
     splashWindow.show();
@@ -190,14 +188,11 @@ function createWindow () {
       mainWindow.loadURL(`${config.links.inicio}`); //IGNORAR
       title: "";
 
-      // MODO AUTOMÁTICO DE TELA CHEIA - ATIVAR MODO YOUTUBER
-      // TRUE = ATIVADO | FALSE = DESATIVADO
-
-      // CASO QUEIRA CAPTURAR O JOGO (SEM ELE FICAR CONGELANDO), ATIVE O MODO YOUTUBER NAS CONFIGS!
-      // OBS: o modo YouTuber ativa automaticamente o modo tela cheia no cliente.
+      // CASO QUEIRA CAPTURAR O JOGO (SEM ELE FICAR CONGELANDO), ATIVE O MODO FULLSCREEN NAS CONFIGS!
+      // OBS: o modo fullscreen ativa automaticamente o modo tela cheia no cliente.
       // Se ativo, para alternar de janela use "Alt+Tab", "Win" ou saia do modo tela cheia (gravação vai ficar travando).
 
-      if (config.modos.youtuber == true) {
+      if (config.modos.fullscreen == true) {
         mainWindow.setFullScreen(true);
       }
 
@@ -243,6 +238,11 @@ if (config.modos.dev == false) {
 app.on('ready', function () {
   if (isThereAnError) return;
   createWindow();
+
+  globalShortcut.register('Alt+CommandOrControl+B', () => {
+    mainWindow.loadURL("https://beta.cpdimensions.com");
+  });
+
 });
 
 app.setAsDefaultProtocolClient('cpd');
