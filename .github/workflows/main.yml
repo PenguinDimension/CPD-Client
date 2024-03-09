@@ -14,15 +14,15 @@ jobs:
 
     steps:
 
-      - name: Setup Python 2.7 (Mac)
+      - name: Setup Python 3.11 (Mac)
         if: startsWith(matrix.os, 'macos')
         uses: actions/setup-python@v4
         with:
-          python-version: '2.7'
+          python-version: '3.11'
 
       - name: Python install setuptools (Mac)
         if: startsWith(matrix.os, 'macos')
-        run: python2 -m pip install setuptools
+        run: python3 -m pip install setuptools
 
       - name: Check out the repository
         uses: actions/checkout@v2
