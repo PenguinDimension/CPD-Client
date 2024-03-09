@@ -13,18 +13,27 @@ jobs:
         os: [macos-latest, ubuntu-latest]
 
     steps:
-      - run: python3 -m pip install setuptools
+
+      - name: Setup Python 2.x (Mac)
+        if: startsWith(matrix.os, 'macos')
+        uses: actions/setup-python@v4
+        with:
+          python-version: '2.x'
+
+      - name: Python install setuptools (Mac)
+        if: startsWith(matrix.os, 'macos')
+        run: python2 -m pip install setuptools
 
       - name: Check out the repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js 16.x (macos)
+      - name: Setup Node.js 16.x (Mac)
         if: startsWith(matrix.os, 'macos')
         uses: actions/setup-node@v1
         with:
           node-version: '16.x'
 
-      - name: Setup Node.js 14.x (ubuntu)
+      - name: Setup Node.js 14.x (Ubuntu)
         if: startsWith(matrix.os, 'ubuntu')
         uses: actions/setup-node@v1
         with:
@@ -42,12 +51,6 @@ jobs:
           sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
           sudo flatpak install flathub org.freedesktop.Platform/x86_64/22.08 org.freedesktop.Sdk/x86_64/22.08 org.electronjs.Electron2.BaseApp/x86_64/22.08 -y
           git config --global --add protocol.file.allow always
-
-      - name: Setup Python 3.11 (macOS)
-        if: startsWith(matrix.os, 'macos')
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
 
       - name: Make and Publish (Ubuntu)
         if: startsWith(matrix.os, 'ubuntu')
