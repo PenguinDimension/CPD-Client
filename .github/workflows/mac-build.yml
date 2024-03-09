@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        os: macos-latest
+        os: [macos-latest]
 
     steps:
 
@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Make and Publish
+      - name: Make and Publishyy
         run: npm run build-mac
         env:
           GITHUB_TOKEN: ${{ secrets.BUILD_TOKEN }}
