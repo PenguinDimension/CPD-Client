@@ -1,0 +1,55 @@
+name: Build CPD-Client
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build CPD-Client
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+
+    steps:
+      - run: python3 -m pip install setuptools
+
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install flatpak
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          sudo apt-get install flatpak -y
+          sudo apt-get install flatpak-builder -y
+          sudo apt-get install elfutils -y
+          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          sudo flatpak install flathub org.freedesktop.Platform/x86_64/22.08 org.freedesktop.Sdk/x86_64/22.08 org.electronjs.Electron2.BaseApp/x86_64/22.08 -y
+          git config --global --add protocol.file.allow always
+
+      - name: Setup Python 3.11 (macOS)
+        if: startsWith(matrix.os, 'macos')
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Make and Publish (Ubuntu)
+        if: startsWith(matrix.os, 'ubuntu')
+        run: npm run build-linux
+        env:
+          GITHUB_TOKEN: ${{ secrets.BUILD_TOKEN }}
+
+      - name: Make and Publish (Mac)
+        if: startsWith(matrix.os, 'macos')
+        run: npm run build-mac
+        env:
+          GITHUB_TOKEN: ${{ secrets.BUILD_TOKEN }}
