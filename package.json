@@ -17,8 +17,8 @@
     "build-win-nsisweb": "electron-builder build --win nsis-web --x64 --ia32 --publish always",
     "build-win-ptb": "electron-builder build --win portable --ia32 --publish always",
     "build-win-zip": "electron-builder build --win zip --ia32 --publish always",
-    "build-linux": "electron-builder build --linux --ia32 --publish never",
-    "build-mac": "electron-builder build --mac --ia32 --publish never"
+    "build-linux": "electron-builder build --linux --ia32 --publish always",
+    "build-mac": "electron-builder build --mac --ia32 --publish always"
   },
   "devDependencies": {
     "electron": "^11.3.0",
@@ -70,7 +70,7 @@
     }
   },
   "build": {
-    "appId": "pw.cpdimensions.client",
+    "appId": "com.cpdimensions.client",
     "productName": "CPDimensions",
     "publish": [
       "github"
