@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Launcher já aberto!</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%; /* Garante que o body ocupe toda a altura da janela */
+      margin: 0; /* Remove margens padrão */
+      background-color: transparent; /* Torna o fundo transparente */
+    }
+  </style>
+</head>
+<body class="d-flex flex-column justify-content-center align-items-center" style="font-family: Arial, sans-serif;">
+  <div class="container text-center p-4 bg-body border rounded shadow" style="max-width: 800px; max-height: 360px;">
+    <div class="container" style="max-width: 720px; max-height: 360px;">
+      <h2 class="mb-3 text-primary">Opa, já estou aberto!</h2>
+      <p class="mb-4">O launcher já está rodando! Caso ele ainda não esteja visível para você, reinicie abaixo ou feche o processo pelo gerenciador de tarefas e abra o launcher novamente.</p>
+      <p class="mb-4">❗ Caso você tenha certeza de que deseja abrir outra janela do launcher, habilite essa funcionalidade nas configurações ligando o modo dev!</p>
+      <p class="mb-4">⚠️ Tenha em mente que, se utilizado, poderá haver bugs no launcher durante a execução de múltiplas instâncias!</p>
+      <div class="d-flex justify-content-around">
+        <button class="btn btn-secondary" onclick="openConfigs()">Abrir configurações</button>
+        <button class="btn btn-success" onclick="window.close()">Deixa, já voltou</button>
+        <button class="btn btn-danger" onclick="restartLauncher()">Reiniciar launcher</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const { ipcRenderer } = require('electron');
+    function restartLauncher() {
+      ipcRenderer.send('restart-launcher');
+    }
+    function openConfigs() {
+      ipcRenderer.send('open-config');
+    }
+    window.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        window.close();
+      }
+    });
+  </script>
+</body>
+</html>

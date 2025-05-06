@@ -212,28 +212,106 @@ function createWindow () {
 
 var gotTheLock = null;
 
-if (config.modos.dev == false) {
-  gotTheLock = app.requestSingleInstanceLock();
-
-  if (!gotTheLock) {
-    app.quit();
-  }
-
-};
-
 // Múltiplas instâncias para modo dev
 if (config.modos.dev == false) {
-  app.on('second-instance', (event, commandLine, workingDirectory) => {
-    dialog.showMessageBox({
-      type: "info",
-      title: "AVISO!",
-      message: "Você não pode executar mais de 1 instância do cliente! \n\nPor enquanto esse recurso está sendo testado, mas se você quiser ter acesso a ele, ative o modo dev. \n\nTenha em mente que se utilizado, poderá haver bugs no cliente durante a execução de múltiplas instâncias!"
-    });
-    if (mainWindow) {
-      if (mainWindow.isMinimized()) mainWindow.restore();
-      mainWindow.focus();
-    };
-  });
+    gotTheLock = app.requestSingleInstanceLock();
+
+    if (!gotTheLock) {
+        app.quit();
+    } else {
+        app.on('second-instance', (event, commandLine, workingDirectory) => {
+            if (mainWindow) {
+                if (!mainWindow.isVisible()) mainWindow.show();
+                if (mainWindow.isMinimized()) mainWindow.restore();
+                mainWindow.focus();
+            };
+    
+            /*
+            dialog.showMessageBox({
+                type: "warning",
+                title: "Opa, já estou aberto!",
+                message: "O launcher já está rodando! Caso ele ainda não esteja visível para você, reinicie abaixo ou feche o processo pelo gerenciador de tarefas e abra o launcher novamente. \n\n❗ Caso você tenha certeza de que deseja abrir outra janela do launcher, habilite essa funcionalidade nas configurações ligando o modo dev! \n\n⚠️ Tenha em mente que, se utilizado, poderá haver bugs no launcher durante a execução de múltiplas instâncias!",
+                buttons: ["Deixa, já voltou", "Reiniciar launcher"], // Adiciona o botão de reiniciar
+            }).then((result) => {
+                if (result.response == 1) { // Se o botão "Reiniciar Launcher" for clicado
+                    if (portableLoc) return dialog.showMessageBoxSync({
+                        type: "error",
+                        title: "Função indisponível!",
+                        message: "O reinício não está disponível no launcher portátil.\nPara reiniciar, feche e abra novamente!"
+                    });
+    
+                    clearCache;
+                    let response = dialog.showMessageBoxSync({
+                        type: "info",
+                        // buttons: ["Ok"],
+                        title: "AVISO!",
+                        message: "Reiniciando launcher... Favor aguardar!"
+                    });
+    
+                    if (response == 0) {
+                        clearCache;
+                        app.relaunch();
+                        clearCache;
+                        app.quit();
+                        clearCache;
+                    };
+                }
+            })
+            .catch((error) => {
+                console.error("Erro ao mostrar a caixa de diálogo:", error);
+            });
+            */
+
+            function showCustomDialog() {
+                const modal = new BrowserWindow({
+                    parent: mainWindow,
+                    modal: true,
+                    width: 800, // Largura exata do modal
+                    height: 360, // Altura exata do modal
+                    useContentSize: true, // Garante que o tamanho seja aplicado ao conteúdo
+                    resizable: false,
+                    transparent: true,
+                    frame: false,
+                    webPreferences: {
+                        nodeIntegration: true,
+                        contextIsolation: false // Necessário para usar ipcRenderer no HTML
+                    },
+                });
+
+                // Carrega o arquivo HTML
+                modal.loadFile(path.join(__dirname, 'pages/alerta-launcher-aberto.html'));
+    
+                modal.once('ready-to-show', () => {
+                    modal.show();
+                });
+            }
+    
+            // No processo principal, escute o evento para reiniciar o launcher
+            ipcMain.once('restart-launcher', () => {
+                // Envie um comando para a instância original reiniciar
+                app.emit('restart-original-instance');
+                // Feche a nova instância
+                app.quit();
+            });
+
+            // Mostre a caixa de diálogo personalizada
+            showCustomDialog();
+        });
+
+        // No processo principal, escute o evento para abrir arquivo de configuração no editor padrão do usuário
+        ipcMain.on('open-config', () => {
+            const configPath = path.join(__dirname, 'config.js');
+            const editor = process.platform === 'win32' ? 'notepad.exe' : 'nano'; // Altere para o editor desejado
+            require('child_process').exec(`${editor} "${configPath}"`);
+        });
+
+        app.once('restart-original-instance', () => {
+            // Reinicie a instância original
+            app.quit();
+            app.relaunch();
+        });
+    }
+
 };
 
 app.on('ready', function () {
