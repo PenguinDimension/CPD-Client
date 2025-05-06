@@ -175,6 +175,7 @@ function createWindow () {
         require('./extensions/discord-rpc'); // Carrega o rich presence do Discord
       }
     }
+    mainWindow.focus();
   });
 
   new Promise(
