@@ -119,3 +119,4 @@ dist
 # CPD
 versions
 electron-builder.env
+ordem-de-build.txt
