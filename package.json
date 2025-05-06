@@ -78,12 +78,14 @@
     "asar": "false",
     "files": [
       "!node_modules/*",
-      "!dist/*"
+      "!dist/*",
+      "!electron-builder.env"
     ],
     "win": {
       "files": [
         "!node_modules/*",
-        "!dist/*"
+        "!dist/*",
+        "!electron-builder.env"
       ],
       "icon": "./build/256x256.ico",
       "artifactName": "CPD-Windows-${version}.${ext}"
@@ -122,7 +124,8 @@
       ],
       "files": [
         "!node_modules/*",
-        "!dist/*"
+        "!dist/*",
+        "!electron-builder.env"
       ],
       "icon": "./build/512x512.icns",
       "artifactName": "CPD-Setup-Linux-${version}.${ext}"
