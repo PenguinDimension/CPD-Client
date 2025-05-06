@@ -11,7 +11,7 @@ const config = {
 	},
 
 	"auto_update": true, // SE O LAUNCHER DEVERÁ SER ATUALIZADO AUTOMATICAMENTE OU NÃO
-	"dc_rich_presence": true, // ATIVE OU DESATIVE O RICH PRESENCE DO DISCORD
+	"discord_rpc": true, // ATIVE OU DESATIVE O RICH PRESENCE DO DISCORD
 
 	"modos": {
 		"youtuber": false, // ADICIONA ZOOMS PERSONALIZADOS
