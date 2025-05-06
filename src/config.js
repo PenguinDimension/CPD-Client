@@ -10,12 +10,12 @@ const config = {
 		"jogar": "https://play.cpdimensions.com"
 	},
 
-	"auto_update": true, // AINDA NÃO TESTADO | SE O CLIENTE DEVERÁ SER ATUALIZADO AUTOMATICAMENTE OU NÃO
+	"auto_update": true, // SE O LAUNCHER DEVERÁ SER ATUALIZADO AUTOMATICAMENTE OU NÃO
 	"dc_rich_presence": true, // ATIVE OU DESATIVE O RICH PRESENCE DO DISCORD
 
 	"modos": {
 		"youtuber": false, // ADICIONA ZOOMS PERSONALIZADOS
-		"fullscreen": false, // TELA CHEIA AO ABRIR O CLIENTE PARA NÃO CONGELAR DURANTE GRAVAÇÕES E STREAMS
+		"fullscreen": false, // TELA CHEIA AO ABRIR O LAUNCHER PARA NÃO CONGELAR DURANTE GRAVAÇÕES E STREAMS
 		"dev": false // HABILITA FERRAMENTAS WEB DE DESENVOLVEDOR E MÚLTIPLAS INSTÂNCIAS
 	},
 

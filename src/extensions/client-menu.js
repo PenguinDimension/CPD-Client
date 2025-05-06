@@ -32,8 +32,8 @@ let template = [
       dialog.showMessageBox({
         type: "info",
         buttons: ["Entendi"],
-        title: "Atalhos do cliente desktop",
-        message: "Atalhos normais:\nCtrl+I = Início\nCtrl+J = Jogar\nCtrl+M = (Des)Mutar Áudio\nF11 = Tela cheia\n\nZooms:\nAmpliar = Ctrl+=\nNormalizar = Ctrl+0\nReduzir = Ctrl+-\n\nAtalhos de ações:\nF5 = Recarregar página\nCtrl+R = Reiniciar cliente\nCtrl+W = Fechar cliente"
+        title: "Atalhos do launcher",
+        message: "Atalhos normais:\nCtrl+I = Início\nCtrl+J = Jogar\nCtrl+M = (Des)Mutar Áudio\nF11 = Tela cheia\n\nZooms:\nAmpliar = Ctrl+=\nNormalizar = Ctrl+0\nReduzir = Ctrl+-\n\nAtalhos de ações:\nF5 = Recarregar página\nCtrl+R = Reiniciar launcher\nCtrl+W = Fechar launcher"
       });
     }
   },
@@ -108,19 +108,19 @@ let template = [
     label: '|',
   },
   {
-    label: 'Reiniciar cliente',
+    label: 'Reiniciar launcher',
     accelerator: 'Ctrl+R',
     click: () => {
       if (portableLoc) return dialog.showMessageBoxSync({
         type: "error",
         title: "Função indisponível!",
-        message: "O reinício não está disponível no cliente portátil.\nPara reiniciar, feche e abra novamente!"
+        message: "O reinício não está disponível no launcher portátil.\nPara reiniciar, feche e abra novamente!"
       });
       clearCache;
       response = dialog.showMessageBoxSync({
         type: "info",
         title: "AVISO!",
-        message: "Reiniciando cliente... Favor aguardar!"
+        message: "Reiniciando launcher... Favor aguardar!"
       });
       if (response == 0) {
         clearCache;

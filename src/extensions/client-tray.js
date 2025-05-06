@@ -11,14 +11,14 @@ let trayContextMenu = Menu.buildFromTemplate([
       if (portableLoc) return dialog.showMessageBoxSync({
         type: "error",
         title: "Função indisponível!",
-        message: "O reinício não está disponível no cliente portátil.\nPara reiniciar, feche e abra novamente!"
+        message: "O reinício não está disponível no launcher portátil.\nPara reiniciar, feche e abra novamente!"
       });
       clearCache;
       response = dialog.showMessageBoxSync({
         type: "info",
         // buttons: ["Ok"],
         title: "AVISO!",
-        message: "Reiniciando cliente... Favor aguardar!"
+        message: "Reiniciando launcher... Favor aguardar!"
       });
       if (response == 0) {
         clearCache;
@@ -40,12 +40,12 @@ let trayContextMenu = Menu.buildFromTemplate([
 
 // Criar ícone na tray
 const createTray = () => {
-  tray = new Tray(path.join(__dirname, '../../build/512x512.png'));
+  const tray = new Tray(path.join(__dirname, '../../build/512x512.png'));
   tray.on('click', () => {
     toggleWindow();
   });
-  tray.setToolTip('Club Penguin Dimensions Desktop Client');
-  tray.setTitle('Club Penguin Dimensions Desktop Client');
+  tray.setToolTip('CPDimensions Launcher');
+  tray.setTitle('CPDimensions Launcher');
   tray.setContextMenu(trayContextMenu);
   return tray;
 };
