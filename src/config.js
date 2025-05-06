@@ -10,13 +10,13 @@ const config = {
 		"jogar": "https://play.cpdimensions.com"
 	},
 
-	"auto_update": true, // SE O LAUNCHER DEVERÁ SER ATUALIZADO AUTOMATICAMENTE OU NÃO
-	"discord_rpc": true, // ATIVE OU DESATIVE O RICH PRESENCE DO DISCORD
+	"auto_update": true, // ATUALIZAR LAUNCHEER AUTOMATICAMENTE?
+	"discord_rpc": true, // ATIVAR RICH PRESENCE DO DISCORD?
 
 	"modos": {
-		"youtuber": false, // ADICIONA ZOOMS PERSONALIZADOS
-		"fullscreen": false, // TELA CHEIA AO ABRIR O LAUNCHER PARA NÃO CONGELAR DURANTE GRAVAÇÕES E STREAMS
-		"dev": false // HABILITA FERRAMENTAS WEB DE DESENVOLVEDOR E MÚLTIPLAS INSTÂNCIAS
+		"youtuber": false, // ADICIONAR ZOOMS PERSONALIZADOS?
+		"fullscreen": false, // ABRIR EM TELA CHEIA?
+		"dev": false // HABILITAR DEV TOOLS E MÚLTIPLAS INSTÂNCIAS?
 	},
 
 	"zoom": {
