@@ -8,7 +8,6 @@ const config = require("./config.js");
 const path = require('path');
 
 
-
 /* INÍCIO - CRIANDO UM HANDLER PROS ERROS NÃO FICAREM FEIOS E SEREM FACILMENTE ENTENDÍVEIS POR UMA PESSOA NÃO DEVELOPER 👍 */
 
 var isThereAnError = false;
@@ -36,7 +35,7 @@ const callError = function(err) {
     Menu.setApplicationMenu(null); // Remove o menu original do cliente inteiro
 */
 
-    erro = err.message || "Ocorreu um erro mas não pude identificar qual...";
+    let erro = err.message || "Ocorreu um erro mas não pude identificar qual...";
 
     let response = dialog.showMessageBoxSync({
       type: "error",
@@ -325,6 +324,15 @@ app.on('ready', function () {
 });
 
 app.setAsDefaultProtocolClient('cpd');
+app.on('open-url', (event, url) => {
+  event.preventDefault();
+  if (mainWindow) {
+    mainWindow.loadURL(url);
+    mainWindow.show();
+  } else {
+    createWindow();
+  }
+});
 
 app.on('window-all-closed', function () {
   // Quando o cliente for fechado, auto-atualiza e fecha se ativado e se houver atualização disponível
