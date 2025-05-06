@@ -170,7 +170,7 @@ function createWindow () {
     if (splashWindow) {
       await splashWindow.close();
       await mainWindow.show();
-      fstray = tray.createTray();
+      fstray = tray && tray.createTray ? tray.createTray() : null;
       if (config.discord_rpc == true) {
         require('./extensions/discord-rpc'); // Carrega o rich presence do Discord
       }
