@@ -211,8 +211,8 @@ function createWindow () {
 
 var gotTheLock = null;
 
-// Múltiplas instâncias para modo dev
-if (config.modos.dev == false) {
+// Múltiplas instâncias para modo dev ou launcher portable
+if (config.modos.dev == false && !portableLoc) {
     gotTheLock = app.requestSingleInstanceLock();
 
     if (!gotTheLock) {
